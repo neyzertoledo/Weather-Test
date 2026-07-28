@@ -8,6 +8,7 @@
 import Foundation
 
 struct Constants {
+    static let baseURL = "https://api.open-meteo.com/v1/forecast"
     static func temperature(temp: Double, unit: TemperatureUnit) -> String {
         let unitString: String
         if unit == .celsius {
@@ -20,7 +21,7 @@ struct Constants {
     }
 }
 
-enum TemperatureUnit {
+enum TemperatureUnit: String {
     case celsius
     case fahrenheit
 }
