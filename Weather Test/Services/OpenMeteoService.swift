@@ -39,11 +39,20 @@ struct OpenMeteoService {
             ))
         }
 
+//        print("----Data-----")
+//        print(String(data: data, encoding: .utf8) ?? "")
+//        print("-----")
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let openMeteoResponse = try decoder.decode(OpenMeteoResponse.self, from: data)
+        do {
+            let openMeteoResponse = try decoder.decode(OpenMeteoResponse.self, from: data)
 
-        return openMeteoResponse
+            return openMeteoResponse
+
+        } catch {
+            print(error)
+            throw error
+        }
     }
 
     private func buildURL(

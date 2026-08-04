@@ -9,13 +9,13 @@ import Foundation
 struct HourlyForecast: Codable, Hashable {
     enum CodingKeys: String, CodingKey {
         case time
-        case temperature = "temperature_2m"
-        case precipitation = "precipitation_probability_max"
+        case temperature = "temperature2M"
+        case precipitation = "precipitationProbability"
         case weatherCode
     }
 
-    let time: [Date]
-    let temperature: [Float]
+    let time: [String]
+    let temperature: [Double]
     let precipitation: [Int]
     let weatherCode: [Int]
 }
