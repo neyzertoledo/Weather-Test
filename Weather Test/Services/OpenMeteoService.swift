@@ -20,11 +20,31 @@ import Foundation
 struct OpenMeteoService {
     let latitude: Double
     let longitude: Double
-//    func requestAll() throws -> OpenMeteoResponse {
-//        url = buildURL(
-//            current: [.]
-//        )
-//    }
+
+    func requestAll() async throws -> OpenMeteoResponse {
+        let url = try buildURL(
+            current: [.temperature, .feelsLike, .isDay, .weatherCode],
+            hourly: [.temperature, .precipitation, .weatherCode],
+            daily: [.temperatureMax, .temperatureMin,.precipitationMax, .weatherCode]
+        )
+
+        print(url)
+        let(data, urlResponse) = try await URLSession.shared.data(from: url)
+
+        guard let response = urlResponse as? HTTPURLResponse,response.statusCode == 200 else {
+            throw NetworkError.badURLResponse(underliyingError: NSError.init(
+                domain: "OpenMeteoRequest",
+                code: (urlResponse as? HTTPURLResponse)?.statusCode ?? -1,
+                userInfo: [NSLocalizedDescriptionKey: "Invalid HTTP Response"]
+            ))
+        }
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let openMeteoResponse = try decoder.decode(OpenMeteoResponse.self, from: data)
+
+        return openMeteoResponse
+    }
 
     private func buildURL(
         current: [OpenMeteoOptions]? = nil,
@@ -81,7 +101,7 @@ enum OpenMeteoOptions: String {
     case isDay = "is_day"
     case weatherCode = "weather_code"
     case precipitation = "precipitation_probability"
-    case precipitationMax = "precipitation_probabilityMax"
-    case precipitationMin = "precipitation_probabilityMin"
+    case precipitationMax = "precipitation_probability_max"
+    case precipitationMin = "precipitation_probability_min"
 }
 

@@ -12,3 +12,20 @@ enum OpenMeteoError: Error {
     case invalidData
     case invalidDecoding
 }
+
+enum NetworkError: Error, LocalizedError {
+    case badURLResponse(underliyingError: Error)
+    case missingConfig
+    case urlBuildFailed
+
+    var  errorDescription: String? {
+        switch self {
+        case .badURLResponse(underliyingError: let error):
+            return "Bad URL response: \(error.localizedDescription)"
+        case .missingConfig:
+            return "Missing config"
+        case .urlBuildFailed:
+            return "Failed to build URL"
+        }
+    }
+}
