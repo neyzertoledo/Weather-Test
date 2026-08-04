@@ -7,10 +7,19 @@
 import Foundation
 
 struct CurrentForecast: Codable {
+    enum CodingKeys: String, CodingKey {
+        case time = "dt"
+        case interval
+        case temperature = "temperature_2m"
+        case feelsLike = "apparent_temperature"
+        case isDay
+        case weatherCode
+    }
+
     let time: Date
     let interval: Int
-    let temperature_2: Float
-    let aparent_temperature: Float
-    let is_day: Bool
-    let weather_code: Int
+    let temperature: Float
+    let feelsLike: Float
+    let isDay: Bool
+    let weatherCode: Int
 }

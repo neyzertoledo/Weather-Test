@@ -7,9 +7,17 @@
 import Foundation
 
 struct DailyForecast: Codable, Hashable {
+    enum CodingKeys: String, CodingKey {
+        case time
+        case temperatureMax = "temperature_2m_max"
+        case temperatureMin = "temperature_2m_min"
+        case precipitationMax = "precipitation_probability_max"
+        case weatherCode
+    }
+
     let time: [Date]
-    let temperature_2_max: [Float]
-    let temperature_2_min: [Float]
-    let precipitation_probability_max: [Int]
-    let weather_code: [Int]
+    let temperatureMax: [Float]
+    let temperatureMin: [Float]
+    let precipitationMax: [Int]
+    let weatherCode: [Int]
 }
