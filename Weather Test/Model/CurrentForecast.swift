@@ -13,6 +13,7 @@ struct CurrentForecast: Decodable {
     let feelsLike: Double
     let isDay: Bool
     let weatherIcon: String
+    let weatherDescription: String
 
     enum CodingKeys: String, CodingKey {
         case time
@@ -21,6 +22,23 @@ struct CurrentForecast: Decodable {
         case feelsLike = "apparentTemperature"
         case isDay
         case weatherCode
+    }
+
+    init(
+        time: String,
+        interval: Int,
+        temperature: Double,
+        feelsLike: Double,
+        isDay: Bool,
+        weatherCode: Int
+    ) {
+        self.time = time
+        self.interval = interval
+        self.temperature = temperature
+        self.feelsLike = feelsLike
+        self.isDay = isDay
+        self.weatherIcon = Parser.weatherIcon(for: weatherCode, isDay: isDay)
+        self.weatherDescription = Parser.weatherDescription(for: weatherCode, isDay: isDay)
     }
 
     init(from decoder: Decoder) throws {
@@ -35,5 +53,6 @@ struct CurrentForecast: Decodable {
 
         let weatherCode = try container.decode(Int.self, forKey: .weatherCode)
         weatherIcon = Parser.weatherIcon(for: weatherCode, isDay: isDay )
+        weatherDescription = Parser.weatherDescription(for: weatherCode, isDay: isDay)
     }
 }
