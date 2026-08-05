@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var city = "Tijuana"
-    var temp: Double = 0
-    let viewModel = OpenMeteoViewModel()
+    let viewModel = ForecastViewModel()
 
     var body: some View {
         VStack {
@@ -19,7 +18,7 @@ struct ContentView: View {
                 currentForecast: viewModel.current
             )
 
-//            HourlyForecastListView()
+            HourlyForecastListView(forecastList: viewModel.hourly ?? [])
 
             ScrollView() {
                 Text("10-day forecast")

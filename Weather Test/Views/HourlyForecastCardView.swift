@@ -7,22 +7,25 @@
 import SwiftUI
 
 struct HourlyForecastCardView: View {
-    let time : String
-    let icon : String
-    let temperature : Double
+    let forecast: HourlyForecast
 
     var body: some View {
         VStack {
-            Text("\(time)")
+            Text("\(forecast.time.simpleHour)")
             Spacer()
-            Image(systemName: icon)
+            Image(systemName: forecast.weatherIcon)
             Spacer()
-            Text(Constants.temperature(temp: temperature, unit: .celsius))
+            Text(Constants.temperature(temp: forecast.temperature, unit: .celsius))
         }
     }
 }
 
 #Preview {
-    HourlyForecastCardView(time: "10am", icon: "sun.max", temperature: 22)
-        .frame(width: 100, height: 100)
+    HourlyForecastCardView(forecast: HourlyForecast(
+            time: Date.now,
+            temperature: 22,
+            precipitation: 1,
+            weatherIcon: "cloud.sun"
+        )
+    ).frame(width: 100, height: 100)
 }

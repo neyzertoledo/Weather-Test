@@ -31,7 +31,8 @@ struct CurrentForecastView: View {
             temperature: 22,
             feelsLike: 23,
             isDay: true,
-            weatherCode: 2
+            weatherIcon: "cloud.sun",
+            weatherDescription: "Mostly Sunny"
         )
     )
 }

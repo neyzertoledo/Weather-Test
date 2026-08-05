@@ -25,7 +25,7 @@ struct OpenMeteoService {
         current: Bool = false,
         hourly: Bool = false,
         daily: Bool = false
-    ) async throws -> OpenMeteoResponse {
+    ) async throws -> OpenMeteoAPI {
         let url = try buildURL(
             current: current ? [.temperature, .feelsLike, .isDay, .weatherCode] : nil,
             hourly: hourly ? [.temperature, .precipitation, .weatherCode] : nil,
@@ -49,7 +49,7 @@ struct OpenMeteoService {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
-            let openMeteoResponse = try decoder.decode(OpenMeteoResponse.self, from: data)
+            let openMeteoResponse = try decoder.decode(OpenMeteoAPI.self, from: data)
             return openMeteoResponse
 
         } catch {
