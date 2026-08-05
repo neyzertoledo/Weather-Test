@@ -6,7 +6,12 @@
 //
 import Foundation
 
-struct HourlyForecast: Codable, Hashable {
+struct HourlyForecast: Decodable, Hashable {
+    let time: [String]
+    let temperature: [Double]
+    let precipitation: [Int]
+    let weatherIcon: [String]
+
     enum CodingKeys: String, CodingKey {
         case time
         case temperature = "temperature2M"
@@ -14,8 +19,14 @@ struct HourlyForecast: Codable, Hashable {
         case weatherCode
     }
 
-    let time: [String]
-    let temperature: [Double]
-    let precipitation: [Int]
-    let weatherCode: [Int]
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        time = try container.decode([String].self, forKey: .time)
+        temperature = try container.decode([Double].self, forKey: .temperature)
+        precipitation = try container.decode([Int].self, forKey: .precipitation)
+
+        let weatherCodes = try container.decode([Int].self, forKey: .weatherCode)
+        weatherIcon = Parser.weatherIcon(for: weatherCodes)
+    }
 }

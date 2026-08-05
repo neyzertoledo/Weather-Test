@@ -7,8 +7,7 @@
 
 import Foundation
 
-// TODO: CodingKeys to use camelCase instead of snake_case
-struct OpenMeteoResponse: Codable {
+struct OpenMeteoResponse: Decodable {
     let timezone: String
     let generationtimeMs: Double
     let utcOffsetSeconds: Int
