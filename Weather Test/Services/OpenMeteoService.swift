@@ -21,11 +21,15 @@ struct OpenMeteoService {
     let latitude: Double
     let longitude: Double
 
-    func requestAll() async throws -> OpenMeteoResponse {
+    func request(
+        current: Bool = false,
+        hourly: Bool = false,
+        daily: Bool = false
+    ) async throws -> OpenMeteoResponse {
         let url = try buildURL(
-            current: [.temperature, .feelsLike, .isDay, .weatherCode],
-            hourly: [.temperature, .precipitation, .weatherCode],
-            daily: [.temperatureMax, .temperatureMin,.precipitationMax, .weatherCode]
+            current: current ? [.temperature, .feelsLike, .isDay, .weatherCode] : nil,
+            hourly: hourly ? [.temperature, .precipitation, .weatherCode] : nil,
+            daily: daily ? [.temperatureMax, .temperatureMin,.precipitationMax, .weatherCode] : nil
         )
 
         print(url)
@@ -46,7 +50,6 @@ struct OpenMeteoService {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
             let openMeteoResponse = try decoder.decode(OpenMeteoResponse.self, from: data)
-
             return openMeteoResponse
 
         } catch {

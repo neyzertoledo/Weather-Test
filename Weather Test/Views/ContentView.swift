@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    let city = "Tijuana"
-    let temp: Int = 22
-    let weather: String = "Mostly Sunny"
+    var city = "Tijuana"
+    var temp: Double = 0
+    var weather: String = "Mostly Sunny"
+    let viewModel = OpenMeteoViewModel()
 
     var body: some View {
         VStack {
             VStack {
                 Text(city)
-                Text("\(temp)*")
+                Text("\(Constants.temperature(temp: viewModel.current?.temperature ?? 0, unit: .celsius))")
                     .font(.largeTitle)
                     .bold(true)
+                Image(systemName: viewModel.current?.weatherIcon ?? "sun.max.fill")
+                    .font(.title)
                 Text(weather)
             }
 
@@ -46,6 +49,9 @@ struct ContentView: View {
             }
         }
         .padding()
+        .task {
+            await viewModel.getWeather()
+        }
     }
 }
 
