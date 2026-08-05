@@ -29,14 +29,6 @@ struct Parser {
         }
     }
 
-    static func weatherIcon(for codes: [Int]) -> [String] {
-        var weatherIcons: [String] = []
-        codes.forEach { code in
-            weatherIcons.append(weatherIcon(for: code))
-        }
-        return weatherIcons
-    }
-
     static func weatherDescription(for code: Int, isDay: Bool = true) -> String {
         switch code {
         case 0:
@@ -98,11 +90,11 @@ struct Parser {
 
     static func timeParser(for time: String) throws -> Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+        formatter.dateFormat = time.count == 10 ? "yyyy-MM-dd" : "yyyy-MM-dd'T'HH:mm"
 
         guard let date = formatter.date(from: time) else {
             throw NSError(
-                domain: "DateParser",
+                domain: "timeParser",
                 code: 0,
                 userInfo: [
                     NSLocalizedDescriptionKey: "Not valid date format: \(time)"
@@ -112,15 +104,5 @@ struct Parser {
 
         return date
     }
-
-    static func timeParser(for timeList: [String]) throws -> [Date] {
-        var dateList: [Date] = []
-        try timeList.forEach { timeString in
-            dateList.append(try timeParser(for: timeString))
-        }
-
-        return dateList
-    }
-
 
 }
