@@ -7,7 +7,7 @@
 import Foundation
 
 struct HourlyForecast: Decodable, Hashable {
-    let time: [String]
+    let time: [Date]
     let temperature: [Double]
     let precipitation: [Int]
     let weatherIcon: [String]
@@ -22,7 +22,8 @@ struct HourlyForecast: Decodable, Hashable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        time = try container.decode([String].self, forKey: .time)
+        let timeList = try container.decode([String].self, forKey: .time)
+        time = try Parser.timeParser(for: timeList)
         temperature = try container.decode([Double].self, forKey: .temperature)
         precipitation = try container.decode([Int].self, forKey: .precipitation)
 

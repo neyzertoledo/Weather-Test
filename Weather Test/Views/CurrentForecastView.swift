@@ -27,8 +27,7 @@ struct CurrentForecastView: View {
     CurrentForecastView(
         city: "Tijuana",
         currentForecast: CurrentForecast(
-            time: "2026-08-05",
-            interval: 9000,
+            time: Date.now,
             temperature: 22,
             feelsLike: 23,
             isDay: true,

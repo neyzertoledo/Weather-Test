@@ -7,7 +7,7 @@
 import Foundation
 
 struct CurrentForecast: Decodable {
-    let time: String
+    let time: Date
     let interval: Int
     let temperature: Double
     let feelsLike: Double
@@ -25,8 +25,8 @@ struct CurrentForecast: Decodable {
     }
 
     init(
-        time: String,
-        interval: Int,
+        time: Date,
+        interval: Int = 900,
         temperature: Double,
         feelsLike: Double,
         isDay: Bool,
@@ -44,8 +44,10 @@ struct CurrentForecast: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        time = try container.decode(String.self, forKey: .time)
+        let timeString = try container.decode(String.self, forKey: .time)
+        time = try Parser.timeParser(for: timeString)
         interval = try container.decode(Int.self, forKey: .interval)
+
         temperature = try container.decode(Double.self, forKey: .temperature)
         feelsLike = try container.decode(Double.self, forKey: .feelsLike)
 

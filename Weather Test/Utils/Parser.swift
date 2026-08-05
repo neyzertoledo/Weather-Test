@@ -96,6 +96,31 @@ struct Parser {
         }
     }
 
+    static func timeParser(for time: String) throws -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+
+        guard let date = formatter.date(from: time) else {
+            throw NSError(
+                domain: "DateParser",
+                code: 0,
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Not valid date format: \(time)"
+                ]
+            )
+        }
+
+        return date
+    }
+
+    static func timeParser(for timeList: [String]) throws -> [Date] {
+        var dateList: [Date] = []
+        try timeList.forEach { timeString in
+            dateList.append(try timeParser(for: timeString))
+        }
+
+        return dateList
+    }
 
 
 }
