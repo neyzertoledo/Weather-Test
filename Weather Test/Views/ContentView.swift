@@ -12,19 +12,21 @@ struct ContentView: View {
     let viewModel = ForecastViewModel()
 
     var body: some View {
-        VStack {
-            CurrentForecastView(
-                city: city,
-                currentForecast: viewModel.current
-            )
+        ScrollView {
+            VStack(spacing: 40) {
+                CurrentForecastView(
+                    city: city,
+                    currentForecast: viewModel.current
+                )
 
-            HourlyForecastListView(forecastList: viewModel.hourly ?? [])
+                HourlyForecastListView(forecastList: viewModel.hourly ?? [])
 
-            DailyListView(dataList: viewModel.daily ?? [])
-        }
-        .padding()
-        .task {
-            await viewModel.getWeather()
+                DailyListView(dataList: viewModel.daily ?? [])
+            }
+            .padding()
+            .task {
+                await viewModel.getWeather()
+            }
         }
     }
 }

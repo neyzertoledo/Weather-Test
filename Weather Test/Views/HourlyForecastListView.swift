@@ -10,13 +10,24 @@ import SwiftUI
 struct HourlyForecastListView: View {
     let forecastList : [HourlyForecast]
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 15) {
-                ForEach(forecastList, id: \.self) { hourlyForecast in
-                    HourlyForecastCardView(forecast: hourlyForecast)
+        VStack {
+
+            Text("Hourly forecast")
+                .padding(.top)
+                .padding(.leading)
+                .frame(maxWidth: .infinity,alignment: .leading)
+                .font(.headline)
+                .textCase(.uppercase)
+
+            ScrollView(.horizontal) {
+                HStack(spacing: 15) {
+                    ForEach(forecastList, id: \.self) { hourlyForecast in
+                        HourlyForecastCardView(forecast: hourlyForecast)
+                    }
                 }
+                .padding()
+                .padding(.top, 0)
             }
-            .padding()
         }
         .background {
             RoundedRectangle(cornerRadius: 15, style: .continuous)

@@ -10,16 +10,21 @@ import SwiftUI
 struct DailyListView: View {
     let dataList: [DailyForecast]
     var body: some View {
-        ScrollView() {
+        VStack {
+
             Text("10-day forecast")
                 .font(.headline)
-                .padding(5)
+                .padding()
+                .textCase(.uppercase)
+                .frame(maxWidth: .infinity,alignment: .leading)
+
             VStack(spacing: 5) {
                 ForEach(dataList, id: \.self) { data in
                     DailyCardView(data: data)
                 }
             }
             .padding(.horizontal)
+
         }
         .frame(maxWidth: .infinity)
         .background {
