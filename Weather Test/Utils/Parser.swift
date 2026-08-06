@@ -8,24 +8,24 @@
 import Foundation
 
 struct Parser {
-    static func weatherIcon(for code: Int, isDay: Bool = true) -> String {
+    static func weatherIcon(for code: Int, isDay: Bool = true) -> WeatherIcons {
         switch code {
         case 0, 1:
-            return isDay ? "sun.max" : "moon.stars"
+            return isDay ? .clearDay : .clearNight
         case 2:
-            return isDay ? "cloud.sun" : "cloud.moon"
+            return isDay ? .cloudDay : .cloudNight
         case 3:
-            return "cloud"
+            return .cloud
         case 45, 48:
-            return "cloud.fog"
+            return .cloudFog
         case 61, 63, 65:
-            return "cloud.rain"
+            return .rain
         case 71, 73, 75:
-            return "cloud.snow"
+            return .snow
         case 95, 96, 99:
-            return "cloud.bolt.rain"
+            return .thunderstorm
         default:
-            return "questionmark.circle"
+            return .unknown
         }
     }
 
@@ -91,6 +91,9 @@ struct Parser {
     static func timeParser(for time: String) throws -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = time.count == 10 ? "yyyy-MM-dd" : "yyyy-MM-dd'T'HH:mm"
+        if time.count == 10 {
+            formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        }
 
         guard let date = formatter.date(from: time) else {
             throw NSError(

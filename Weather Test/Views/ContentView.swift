@@ -20,26 +20,7 @@ struct ContentView: View {
 
             HourlyForecastListView(forecastList: viewModel.hourly ?? [])
 
-            ScrollView() {
-                Text("10-day forecast")
-                    .font(.headline)
-                    .padding()
-                HStack(spacing: 10) {
-                    HStack {
-                        Text("Today")
-                        Image(systemName: "sun.max")
-                        Text("17*")
-                        Text("----")
-                        Text("17*")
-                    }
-                }
-                .padding()
-            }
-            .frame(maxWidth: .infinity)
-            .background {
-                RoundedRectangle(cornerRadius: 15, style: .continuous)
-                    .stroke(.blue,lineWidth: 5)
-            }
+            DailyListView(dataList: viewModel.daily ?? [])
         }
         .padding()
         .task {

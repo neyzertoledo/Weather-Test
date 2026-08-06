@@ -12,6 +12,6 @@ struct CurrentForecast {
     let temperature: Double
     let feelsLike: Double
     let isDay: Bool
-    let weatherIcon: String
+    let weatherIcon: WeatherIcons
     let weatherDescription: String
 }

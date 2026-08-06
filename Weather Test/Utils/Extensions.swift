@@ -14,11 +14,23 @@ extension Date {
 
     var simpleHour: String {
         let time = self.hour < 12 ? "am" : "pm"
-        return "\(hour%12)\(time)"
+        let hourTime = self.hour%12 == 0 ? 12 : self.hour%12
+        return "\(hourTime)\(time)"
     }
 
-    func adding(hours: Int) -> Date {
-        let newDate = Calendar.current.date(byAdding: .hour, value: hours, to: self)
-        return newDate ?? self
+    var dayText: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        return formatter.string(from: self)
+    }
+
+    var relativeDayText: String {
+        return Date() == self ? "Today" : dayText
+    }
+
+    func adding(hours: Int = 0, days: Int = 0) -> Date {
+        let daysTime = days*24*60*60
+        let hoursTime = hours*60*60
+        return self.addingTimeInterval(TimeInterval(daysTime+hoursTime))
     }
 }

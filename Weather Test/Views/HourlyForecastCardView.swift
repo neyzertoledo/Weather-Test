@@ -13,7 +13,7 @@ struct HourlyForecastCardView: View {
         VStack {
             Text("\(forecast.time.simpleHour)")
             Spacer()
-            Image(systemName: forecast.weatherIcon)
+            Image(systemName: forecast.weatherIcon.rawValue)
             Spacer()
             Text(Constants.temperature(temp: forecast.temperature, unit: .celsius))
         }
@@ -25,7 +25,7 @@ struct HourlyForecastCardView: View {
             time: Date.now,
             temperature: 22,
             precipitation: 1,
-            weatherIcon: "cloud.sun"
+            weatherIcon: .clearDay
         )
     ).frame(width: 100, height: 100)
 }

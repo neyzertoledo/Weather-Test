@@ -12,5 +12,5 @@ struct DailyForecast: Hashable {
     let temperatureMax: Double
     let temperatureMin: Double
     let precipitationMax: Int
-    let weatherIcon: String
+    let weatherIcon: WeatherIcons
 }

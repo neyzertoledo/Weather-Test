@@ -11,5 +11,5 @@ struct HourlyForecast: Hashable {
     let time: Date
     let temperature: Double
     let precipitation: Int
-    let weatherIcon: String
+    let weatherIcon: WeatherIcons
 }
