@@ -9,7 +9,7 @@ import Foundation
 
 struct Constants {
     static let baseURL = "https://api.open-meteo.com/v1/forecast"
-    static func temperature(temp: Double, unit: TemperatureUnit) -> String {
+    static func temperature(temp: Double, unit: TemperatureUnit = .celsius) -> String {
         let unitString: String
         if unit == .celsius {
             unitString = "C"

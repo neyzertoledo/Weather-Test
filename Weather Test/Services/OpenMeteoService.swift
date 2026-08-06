@@ -15,6 +15,7 @@ import Foundation
     &timezone=auto
     &forecast_days=14
     &temperature_unit=celsius
+    &forecast_hours=24
  */
 
 struct OpenMeteoService {
@@ -70,7 +71,8 @@ struct OpenMeteoService {
             URLQueryItem(name: "longitude", value: "\(longitude)"),
             URLQueryItem(name: "timezone", value: "auto"),
             URLQueryItem(name: "forecast_days", value: "14"),
-            URLQueryItem(name: "temperature_unit", value: temperatureUnit.rawValue)
+            URLQueryItem(name: "forecast_hours", value: "24"),
+            URLQueryItem(name: "temperature_unit", value: temperatureUnit.rawValue),
         ]
 
         if let current {

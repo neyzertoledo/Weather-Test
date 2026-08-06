@@ -15,7 +15,7 @@ struct OpenMeteoHourly: Codable {
     func toModel() throws -> [HourlyForecast] {
         var hourlyForecast: [HourlyForecast] = []
 
-        for index in 1..<time.count {
+        for index in 0..<time.count {
             hourlyForecast.append(
                 HourlyForecast(
                     time: try Parser.timeParser(for: time[index]),
