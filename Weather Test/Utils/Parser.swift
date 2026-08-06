@@ -91,9 +91,6 @@ struct Parser {
     static func timeParser(for time: String) throws -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = time.count == 10 ? "yyyy-MM-dd" : "yyyy-MM-dd'T'HH:mm"
-        if time.count == 10 {
-            formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        }
 
         guard let date = formatter.date(from: time) else {
             throw NSError(
