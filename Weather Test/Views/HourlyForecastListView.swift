@@ -14,7 +14,6 @@ struct HourlyForecastListView: View {
 
             Text("Hourly forecast")
                 .padding(.top)
-                .padding(.leading)
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .font(.headline)
                 .textCase(.uppercase)
@@ -25,21 +24,17 @@ struct HourlyForecastListView: View {
                         HourlyForecastCardView(forecast: hourlyForecast)
                     }
                 }
-                .padding()
-                .padding(.top, 0)
             }
+            .padding(.bottom, 20)
         }
-        .background {
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .stroke(.blue,lineWidth: 5)
-        }
-        .frame(height: 100)
+        .cardView()
     }
 }
 
 
 #Preview {
     HourlyForecastListView( forecastList: MockData.hourlyData())
+        .frame(maxHeight: 200)
 }
 
 

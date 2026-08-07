@@ -12,7 +12,7 @@ struct ContentView: View {
     let viewModel = ForecastViewModel()
 
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack(spacing: 40) {
                 CurrentForecastView(
                     city: city,
@@ -28,6 +28,8 @@ struct ContentView: View {
                 await viewModel.getWeather()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.weatherApp)
     }
 }
 

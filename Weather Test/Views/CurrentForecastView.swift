@@ -16,8 +16,6 @@ struct CurrentForecastView: View {
             Text("\(Constants.temperature(temp: currentForecast?.temperature ?? 0, unit: .celsius))")
                 .font(.largeTitle)
                 .bold(true)
-            Image(systemName: currentForecast?.weatherIcon.rawValue ?? WeatherIcons.clearDay.rawValue)
-                .font(.title)
             Text(currentForecast?.weatherDescription ?? "Mostly Sunny")
         }
     }

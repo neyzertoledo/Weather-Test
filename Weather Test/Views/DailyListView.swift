@@ -27,14 +27,10 @@ struct DailyListView: View {
 
         }
         .frame(maxWidth: .infinity)
-        .background {
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .stroke(.blue,lineWidth: 5)
-        }
+        .cardView()
     }
 }
 
 #Preview {
     DailyListView(dataList: MockData.dailyData())
-        .padding()
 }
