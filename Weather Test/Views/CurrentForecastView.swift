@@ -9,14 +9,15 @@ import SwiftUI
 
 struct CurrentForecastView: View {
     let city: String
-    let currentForecast: CurrentForecast?
+    let temperature: Double
+    let weatherDescription: String
     var body: some View {
         VStack {
             Text(city)
-            Text("\(Constants.temperature(temp: currentForecast?.temperature ?? 0, unit: .celsius))")
+            Text("\(Constants.temperature(temp: temperature, unit: .celsius))")
                 .font(.largeTitle)
                 .bold(true)
-            Text(currentForecast?.weatherDescription ?? "Mostly Sunny")
+            Text(weatherDescription)
         }
     }
 }
@@ -24,13 +25,7 @@ struct CurrentForecastView: View {
 #Preview {
     CurrentForecastView(
         city: "Tijuana",
-        currentForecast: CurrentForecast(
-            time: Date.now,
-            temperature: 22,
-            feelsLike: 23,
-            isDay: true,
-            weatherIcon: .clearDay,
-            weatherDescription: "Mostly Sunny"
-        )
+        temperature: 22,
+        weatherDescription: "Mostly Sunny"
     )
 }

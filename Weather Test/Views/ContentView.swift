@@ -16,7 +16,9 @@ struct ContentView: View {
             VStack(spacing: 40) {
                 CurrentForecastView(
                     city: city,
-                    currentForecast: viewModel.current
+                    temperature: viewModel.current?.temperature ?? 0,
+                    weatherDescription: viewModel.current?.weatherDescription ?? "Sunny",
+
                 )
 
                 HourlyForecastListView(forecastList: viewModel.hourly ?? [])
@@ -28,7 +30,6 @@ struct ContentView: View {
                 await viewModel.getWeather()
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.weatherApp)
     }
 }

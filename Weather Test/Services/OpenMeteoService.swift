@@ -9,7 +9,7 @@ import Foundation
 /*
  https://api.open-meteo.com/v1/forecast?
     latitude=20.5888&longitude=-100.3899
-    &current=temperature_2m,apparent_temperature,is_day,weather_code
+    &current=temperature_2m,apparent_temperature,is_day,weather_code,relative_humidity_2m,precipitation,wind_speed_10m
     &hourly=temperature_2m,precipitation_probability,weather_code
     &daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code
     &timezone=auto
@@ -28,8 +28,8 @@ struct OpenMeteoService {
         daily: Bool = false
     ) async throws -> OpenMeteoAPI {
         let url = try buildURL(
-            current: current ? [.temperature, .feelsLike, .isDay, .weatherCode] : nil,
-            hourly: hourly ? [.temperature, .precipitation, .weatherCode] : nil,
+            current: current ? [.temperature, .feelsLike, .isDay, .weatherCode, .precipitation, .humidity, .windSpeed] : nil,
+            hourly: hourly ? [.temperature, .precipitationProbability, .weatherCode] : nil,
             daily: daily ? [.temperatureMax, .temperatureMin,.precipitationMax, .weatherCode] : nil
         )
 
@@ -106,7 +106,6 @@ struct OpenMeteoService {
     }
 }
 
-
 enum OpenMeteoOptions: String {
     case temperature = "temperature_2m"
     case temperatureMax = "temperature_2m_max"
@@ -114,8 +113,11 @@ enum OpenMeteoOptions: String {
     case feelsLike = "apparent_temperature"
     case isDay = "is_day"
     case weatherCode = "weather_code"
-    case precipitation = "precipitation_probability"
+    case precipitationProbability = "precipitation_probability"
+    case precipitation = "precipitation"
     case precipitationMax = "precipitation_probability_max"
     case precipitationMin = "precipitation_probability_min"
+    case windSpeed = "wind_speed_10m"
+    case humidity = "relative_humidity_2m"
 }
 
