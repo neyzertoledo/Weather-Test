@@ -12,6 +12,7 @@ class ForecastViewModel {
         case notStarted
         case fetching
         case success
+        case permissionsDenied
         case failed(underlyingError: Error)
     }
 
@@ -32,8 +33,10 @@ class ForecastViewModel {
             self.hourly = weather.hourly
             
             homeStatus = .success
+        } catch LocationError.permissionDenied {
+            homeStatus = .permissionsDenied
         } catch {
-            print("Error :(")
+            print("Error :(: \(error)" )
             homeStatus = .failed(underlyingError: error)
         }
 

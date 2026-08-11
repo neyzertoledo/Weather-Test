@@ -17,8 +17,20 @@ struct ContentView: View {
             case .notStarted:
                 EmptyView()
             case .fetching:
-                ProgressView()
-                    .frame(maxWidth: .infinity)
+                VStack(spacing: 12) {
+                    Text("Getting the weather...")
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                }
+            case .permissionsDenied:
+                VStack(spacing: 12) {
+                    Image(systemName: "location.slash")
+                        .font(.largeTitle)
+                    Text("We need locations acces to show the weather")
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
             case .failed(let error):
                 Text("Error: " + error.localizedDescription)
             case .success:
@@ -26,8 +38,7 @@ struct ContentView: View {
                     CurrentForecastView(
                         city: city,
                         temperature: viewModel.current?.temperature ?? 0,
-                        weatherDescription: viewModel.current?.weatherDescription ?? "Sunny",
-
+                        weatherDescription: viewModel.current?.weatherDescription ?? "Sunny"
                     )
 
                     HourlyForecastListView(forecastList: viewModel.hourly ?? [])
@@ -43,6 +54,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()

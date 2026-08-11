@@ -29,3 +29,17 @@ enum NetworkError: Error, LocalizedError {
         }
     }
 }
+
+enum LocationError: Error, LocalizedError {
+    case permissionDenied
+    case unavailable
+
+    var errorDescription: String? {
+        switch self {
+        case .permissionDenied:
+            return "Without location permission"
+        case .unavailable:
+            return "Location unavailable"
+        }
+    }
+}

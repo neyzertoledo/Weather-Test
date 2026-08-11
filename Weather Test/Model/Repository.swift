@@ -6,13 +6,21 @@
 //
 
 import Foundation
+import CoreLocation
 
 public class Repository {
-    private let openMeteoService = OpenMeteoService(
-        latitude: 32.51567520586737,
-        longitude: -117.01188324489881
-    )
+    private let locationService: LocationService
+
+    init(locationService: LocationService = LocationService()) {
+        self.locationService = locationService
+    }
+
     func getForecast() async throws -> Forecast {
+        let location = try await locationService.requestCurrentLocation()
+        let openMeteoService = OpenMeteoService(
+            latitude: location.latitude,
+            longitude: location.longitude
+        )
         return try await openMeteoService.request(
             current: true,
             hourly: true,
