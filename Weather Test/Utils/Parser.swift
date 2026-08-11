@@ -16,14 +16,25 @@ struct Parser {
             return isDay ? .cloudDay : .cloudNight
         case 3:
             return .cloud
-        case 45, 48:
+        case 40...49:
             return .cloudFog
-        case 61, 63, 65:
-            return .rain
-        case 71, 73, 75:
+        case 50...59:
+            return .drizzle
+        case 60...67, 80...82, 91, 92:
+            return code >= 64 || code == 82 ? .heavyRain : .rain
+        case 68, 69, 83, 84:
+            return .sleet
+        case 70...79, 85, 86:
             return .snow
-        case 95, 96, 99:
-            return .thunderstorm
+        case 87...90:
+            return .hail
+        case 36...39:
+            return .windSnow
+        case 4...9, 30...35:
+            return .dust
+        case 13, 17, 29, 93...99:
+            return code >= 97 ? .severeThunderstorm : .thunderstorm
+
         default:
             return .unknown
         }
