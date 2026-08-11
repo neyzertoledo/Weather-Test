@@ -13,24 +13,34 @@ struct ContentView: View {
 
     var body: some View {
         ScrollView(.vertical) {
-            VStack(spacing: 40) {
-                CurrentForecastView(
-                    city: city,
-                    temperature: viewModel.current?.temperature ?? 0,
-                    weatherDescription: viewModel.current?.weatherDescription ?? "Sunny",
+            switch viewModel.homeStatus {
+            case .notStarted:
+                EmptyView()
+            case .fetching:
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+            case .failed(let error):
+                Text("Error: " + error.localizedDescription)
+            case .success:
+                VStack(spacing: 40) {
+                    CurrentForecastView(
+                        city: city,
+                        temperature: viewModel.current?.temperature ?? 0,
+                        weatherDescription: viewModel.current?.weatherDescription ?? "Sunny",
 
-                )
+                    )
 
-                HourlyForecastListView(forecastList: viewModel.hourly ?? [])
+                    HourlyForecastListView(forecastList: viewModel.hourly ?? [])
 
-                DailyListView(dataList: viewModel.daily ?? [])
-            }
-            .padding()
-            .task {
-                await viewModel.getWeather()
+                    DailyListView(dataList: viewModel.daily ?? [])
+                }
+                .padding()
             }
         }
         .background(.weatherApp)
+        .task {
+            await viewModel.getWeather()
+        }
     }
 }
 
