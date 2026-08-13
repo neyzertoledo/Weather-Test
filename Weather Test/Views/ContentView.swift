@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    var city = "Tijuana"
     let viewModel = ForecastViewModel()
 
     var body: some View {
@@ -36,7 +35,7 @@ struct ContentView: View {
             case .success:
                 VStack(spacing: 20) {
                     CurrentForecastView(
-                        city: city,
+                        city: viewModel.cityName,
                         temperature: viewModel.current.temperature,
                         weatherDescription: viewModel.current.weatherDescription
                     )

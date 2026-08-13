@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 @Observable
 final class LocationService: NSObject, CLLocationManagerDelegate {
@@ -80,5 +81,29 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
             continuation.resume(throwing: error)
             self.continuation = nil
         }
+    }
+
+    func currentCity() async throws -> String {
+        let coordinate = try await requestCurrentLocation()
+
+        let location = CLLocation(
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude
+        )
+
+        guard let request = MKReverseGeocodingRequest(location: location) else {
+            throw LocationError.locationNotFound
+        }
+
+        let mapItems = try await request.mapItems
+
+        guard let mapItem = mapItems.first,
+              let city = mapItem.addressRepresentations?.cityName else {
+            throw LocationError.locationNotFound
+        }
+
+        print(mapItems.first ?? "Error in mapItems")
+
+        return city
     }
 }

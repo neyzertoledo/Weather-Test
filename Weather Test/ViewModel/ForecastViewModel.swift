@@ -21,6 +21,7 @@ class ForecastViewModel {
     var current: CurrentForecast = .mock()
     var daily: [DailyForecast] = []
     var hourly: [HourlyForecast] = []
+    var cityName: String = ""
 
     init() {
         self.homeStatus = .fetching
@@ -34,11 +35,13 @@ class ForecastViewModel {
 
         do {
             let weather = try await repository.getForecast()
+            let city = try await repository.getCityName()
             print("Success!")
             self.current = weather.current
             self.daily = weather.daily
             self.hourly = weather.hourly
-            
+            self.cityName = city
+
             homeStatus = .success
         } catch LocationError.permissionDenied {
             homeStatus = .permissionsDenied

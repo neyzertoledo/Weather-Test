@@ -27,4 +27,8 @@ public class Repository {
             daily: true
         ).toModel()
     }
+
+    func getCityName() async throws -> String {
+        return try await locationService.currentCity() 
+    }
 }

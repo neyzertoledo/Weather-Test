@@ -33,6 +33,7 @@ enum NetworkError: Error, LocalizedError {
 enum LocationError: Error, LocalizedError {
     case permissionDenied
     case unavailable
+    case locationNotFound
 
     var errorDescription: String? {
         switch self {
@@ -40,6 +41,8 @@ enum LocationError: Error, LocalizedError {
             return "Without location permission"
         case .unavailable:
             return "Location unavailable"
+        case .locationNotFound:
+            return "Location not found"
         }
     }
 }
