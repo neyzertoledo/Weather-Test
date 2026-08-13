@@ -37,13 +37,16 @@ struct ContentView: View {
                 VStack(spacing: 40) {
                     CurrentForecastView(
                         city: city,
-                        temperature: viewModel.current?.temperature ?? 0,
-                        weatherDescription: viewModel.current?.weatherDescription ?? "Sunny"
+                        temperature: viewModel.current.temperature,
+                        weatherDescription: viewModel.current.weatherDescription
                     )
 
-                    HourlyForecastListView(forecastList: viewModel.hourly ?? [])
+                    HourlyForecastListView(forecastList: viewModel.hourly)
 
-                    DailyListView(dataList: viewModel.daily ?? [])
+                    DailyListView(dataList: viewModel.daily)
+
+                    CurrentListCards(data: viewModel.current)
+
                 }
                 .padding()
             }

@@ -18,9 +18,16 @@ class ForecastViewModel {
 
     private(set) var homeStatus: FetchStatus = .notStarted
     private let repository: Repository = .init()
-    var current: CurrentForecast? = nil
-    var daily: [DailyForecast]? = nil
-    var hourly: [HourlyForecast]? = nil
+    var current: CurrentForecast = .mock()
+    var daily: [DailyForecast] = []
+    var hourly: [HourlyForecast] = []
+
+    init() {
+        self.homeStatus = .fetching
+        self.current = .mock()
+        self.daily = []
+        self.hourly = []
+    }
 
     func getWeather() async {
         homeStatus = .fetching
