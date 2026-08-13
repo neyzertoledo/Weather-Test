@@ -13,9 +13,9 @@ extension Date {
     }
 
     var simpleHour: String {
-        let time = self.hour < 12 ? "am" : "pm"
-        let hourTime = self.hour%12 == 0 ? 12 : self.hour%12
-        return "\(hourTime)\(time)"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ha"
+        return formatter.string(from: self)
     }
 
     var dayText: String {
