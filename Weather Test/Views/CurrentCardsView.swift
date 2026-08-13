@@ -13,26 +13,29 @@ struct CurrentCardsView: View {
     let data: String
 
     var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: icon)
-                Text(title)
-                    .textCase(.uppercase)
-                    .font(.callout)
-                    .bold()
+            VStack {
+                HStack {
+                    Image(systemName: icon)
+                    Text(title)
+                        .textCase(.uppercase)
+                        .font(.callout)
+                        .bold()
+                }
+                .opacity(0.5)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                Text(data)
+                    .font(.title)
+                    .padding()
             }
-            .opacity(0.5)
-            .frame( minWidth: 120, alignment: .leading)
-
-            Text(data)
-                .font(.largeTitle)
-                .padding()
-        }
-
-        .cardView()
+            .frame(maxWidth: .infinity, minHeight: 120)
+            .cardView()
     }
 }
 
 #Preview {
-    CurrentCardsView(title: "Precipitation", icon: "drop.fill", data: "1mm")
+    HStack {
+        CurrentCardsView(title: "a", icon: "drop.fill", data: "1mm")
+        CurrentCardsView(title: "Precipitation", icon: "drop.fill", data: "10.0km/h")
+    }
 }

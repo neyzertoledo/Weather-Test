@@ -34,7 +34,7 @@ struct ContentView: View {
             case .failed(let error):
                 Text("Error: " + error.localizedDescription)
             case .success:
-                VStack(spacing: 40) {
+                VStack(spacing: 20) {
                     CurrentForecastView(
                         city: city,
                         temperature: viewModel.current.temperature,

@@ -11,12 +11,12 @@ struct CurrentListCards: View {
     let data: CurrentForecast
 
     var body: some View {
-        VStack (spacing: 20) {
-            HStack {
+        HStack {
+            VStack {
                 CurrentCardsView(title: "Precipitation", icon: "drop.fill", data: ("\(data.precipitation)mm"))
                 CurrentCardsView(title: "Feels Like", icon: "thermometer.variable", data: Constants.temperature(temp: data.feelsLike, unit: .celsius))
             }
-            HStack {
+            VStack {
                 CurrentCardsView(title: "Humidity", icon: "humidity.fill", data: ("\(data.humidity)%"))
                 CurrentCardsView(title: "Wind Speed", icon: "wind", data: ("\(data.windSpeed)km/h"))
             }
@@ -25,6 +25,5 @@ struct CurrentListCards: View {
 }
 
 #Preview {
-    CurrentListCards(data: CurrentForecast.mock()
-    )
+    CurrentListCards(data: CurrentForecast.mock())
 }
