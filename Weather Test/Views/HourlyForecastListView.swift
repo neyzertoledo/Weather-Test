@@ -12,7 +12,7 @@ struct HourlyForecastListView: View {
     var body: some View {
         VStack {
 
-            Text("Hourly forecast")
+            Text(Strings.hourlyForecast)
                 .padding(.top)
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .font(.headline)

@@ -26,7 +26,7 @@ extension Date {
 
     var relativeDayText: String {
         return Date().formatted(date: .numeric, time: .omitted) == self.formatted(date: .numeric, time: .omitted) ?
-        "Today" : dayText
+        Strings.today : dayText
     }
     
     func adding(hours: Int = 0, days: Int = 0) -> Date {

@@ -12,7 +12,7 @@ struct DailyListView: View {
     var body: some View {
         VStack {
 
-            Text("10-day forecast")
+            Text(Strings.forecast14Days)
                 .font(.headline)
                 .padding()
                 .textCase(.uppercase)

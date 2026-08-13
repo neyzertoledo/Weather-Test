@@ -13,12 +13,12 @@ struct CurrentListCards: View {
     var body: some View {
         HStack {
             VStack {
-                CurrentCardsView(title: "Precipitation", icon: "drop.fill", data: ("\(data.precipitation)mm"))
-                CurrentCardsView(title: "Feels Like", icon: "thermometer.variable", data: Constants.temperature(temp: data.feelsLike, unit: .celsius))
+                CurrentCardsView(title: Strings.precipitation, icon: "drop.fill", data: ("\(data.precipitation)mm"))
+                CurrentCardsView(title: Strings.feelsLike, icon: "thermometer.variable", data: Constants.temperature(temp: data.feelsLike, unit: .celsius))
             }
             VStack {
-                CurrentCardsView(title: "Humidity", icon: "humidity.fill", data: ("\(data.humidity)%"))
-                CurrentCardsView(title: "Wind Speed", icon: "wind", data: ("\(data.windSpeed)km/h"))
+                CurrentCardsView(title: Strings.humidity, icon: "humidity.fill", data: ("\(data.humidity)%"))
+                CurrentCardsView(title: Strings.humidity, icon: "wind", data: ("\(data.windSpeed)km/h"))
             }
         }
     }

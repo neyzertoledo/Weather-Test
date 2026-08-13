@@ -17,7 +17,7 @@ struct ContentView: View {
                 EmptyView()
             case .fetching:
                 VStack(spacing: 12) {
-                    Text("Getting the weather...")
+                    Text(Strings.gettinWeatherData)
                     ProgressView()
                         .frame(maxWidth: .infinity)
                 }
@@ -25,7 +25,7 @@ struct ContentView: View {
                 VStack(spacing: 12) {
                     Image(systemName: "location.slash")
                         .font(.largeTitle)
-                    Text("We need locations acces to show the weather")
+                    Text(Strings.locationPermisionDenied)
                         .multilineTextAlignment(.center)
                 }
                 .frame(maxWidth: .infinity)

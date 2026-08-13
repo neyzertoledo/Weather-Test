@@ -41,61 +41,62 @@ struct Parser {
     }
 
     static func weatherDescription(for code: Int, isDay: Bool = true) -> String {
+        typealias str = Strings.WeatherStrings
         switch code {
         case 0:
-            return isDay ? "Sunny" : "Clear"
+            return isDay ? str.sunny : str.clear
         case 1:
-            return isDay ? "Mostly Sunny" : "Mostly Clear"
+            return isDay ? str.mostlySunny : str.mostlyClear
         case 2:
-            return isDay ? "Partly Cloudy" : "Partly Cloudy"
+            return str.partlyCloudy
         case 3:
-            return "Cloudy"
+            return str.cloudy
         case 45:
-            return "Foggy"
+            return str.foggy
         case 48:
-            return "Freezing Fog"
+            return str.freezingFog
         case 51:
-            return "Light Drizzle"
+            return str.lightDrizzle
         case 53:
-            return "Moderate Drizzle"
+            return str.moderateDrizzle
         case 55:
-            return "Heavy Drizzle"
+            return str.heavyDrizzle
         case 56, 57:
-            return "Freezing Drizzle"
+            return str.freezingDrizzle
         case 61:
-            return "Light Rain"
+            return str.lightRain
         case 63:
-            return "Moderate Rain"
+            return str.moderateRain
         case 65:
-            return "Heavy Rain"
+            return str.heavyRain
         case 66, 67:
-            return "Freezing Rain"
+            return str.freezingRain
         case 71:
-            return "Light Snow"
+            return str.lightSnow
         case 73:
-            return "Moderate Snow"
+            return str.moderateSnow
         case 75:
-            return "Heavy Snow"
+            return str.heavySnow
         case 77:
-            return "Snow Grains"
+            return str.snowGrains
         case 80:
-            return "Light Rain Showers"
+            return str.lightRainShowers
         case 81:
-            return "Moderate Rain Showers"
+            return str.moderateRainShowers
         case 82:
-            return "Heavy Rain Showers"
+            return str.heavyRainShowers
         case 85:
-            return "Light Snow Showers"
+            return str.lightSnowShowers
         case 86:
-            return "Heavy Snow Showers"
+            return str.heavySnowShowers
         case 95:
-            return "Thunderstorm"
+            return str.thunderstorm
         case 96:
-            return "Thunderstorm with Light Hail"
+            return str.thunderstormWithLightHail
         case 99:
-            return "Thunderstorm with Heavy Hail"
+            return str.thunderstormWithHeavyHail
         default:
-            return "Unknown"
+            return str.unknown
         }
     }
 
