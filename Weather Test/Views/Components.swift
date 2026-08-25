@@ -7,19 +7,17 @@
 
 import SwiftUI
 
-struct CardModifier: ViewModifier {
-    func body(content: Content) -> some View {
+// TODO: refactor to wraper like VStack/HStack
+struct CardView<Content: View>: View {
+    @ViewBuilder let content: Content
+
+    var body: some View {
         content
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: 15, style: .continuous)
-                    .fill(.ultraThinMaterial)
-            }
-    }
-}
-extension View {
-    func cardView() -> some View {
-        modifier(CardModifier())
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 15, style: .continuous)
+                .fill(.ultraThinMaterial)
+        }
     }
 }
 

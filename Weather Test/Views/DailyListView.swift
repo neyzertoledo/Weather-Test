@@ -10,24 +10,25 @@ import SwiftUI
 struct DailyListView: View {
     let dataList: [DailyForecast]
     var body: some View {
-        VStack {
-
-            Text(Strings.forecast14Days)
-                .font(.headline)
-                .padding()
-                .textCase(.uppercase)
-                .frame(maxWidth: .infinity,alignment: .leading)
-
-            VStack(spacing: 5) {
-                ForEach(dataList, id: \.self) { data in
-                    DailyCardView(data: data)
+        CardView {
+            VStack {
+                
+                Text(Strings.forecast14Days)
+                    .font(.headline)
+                    .padding()
+                    .textCase(.uppercase)
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                
+                VStack(spacing: 5) {
+                    ForEach(dataList, id: \.self) { data in
+                        DailyCardView(data: data)
+                    }
                 }
+                .padding(.horizontal)
+                
             }
-            .padding(.horizontal)
-
+            .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity)
-        .cardView()
     }
 }
 

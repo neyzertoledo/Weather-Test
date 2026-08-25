@@ -13,6 +13,7 @@ struct CurrentCardsView: View {
     let data: String
 
     var body: some View {
+        CardView {
             VStack {
                 HStack {
                     Image(systemName: icon)
@@ -23,13 +24,13 @@ struct CurrentCardsView: View {
                 }
                 .opacity(0.5)
                 .frame(maxWidth: .infinity, alignment: .leading)
-
+                
                 Text(data)
                     .font(.title)
                     .padding()
             }
             .frame(maxWidth: .infinity, minHeight: 120)
-            .cardView()
+        }
     }
 }
 
