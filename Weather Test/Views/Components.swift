@@ -21,6 +21,39 @@ struct CardView<Content: View>: View {
     }
 }
 
+struct GradientLineView: View {
+    let widthPercent: CGFloat
+    let startPercent: CGFloat
+
+    var body: some View {
+        GeometryReader { geo in
+
+            let width = geo.size.width
+
+            Capsule()
+                .fill(.gray.opacity(0.3))
+                .frame(height: 4)
+                .overlay(alignment: .leading) {
+
+                    Capsule()
+                        .fill(.blue)
+                        .frame(
+                            width: width * widthPercent,
+                            height: 4
+                        )
+                        .offset(x: width * startPercent)
+                }
+        }
+        .frame(height: 4)
+    }
+}
+
+
 #Preview {
-    ContentView()
+    VStack {
+        CardView {
+            Text("Hello, World!")
+            GradientLineView(widthPercent: 0.5, startPercent: 0.1)
+        }
+    }
 }

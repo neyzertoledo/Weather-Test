@@ -9,6 +9,12 @@ import SwiftUI
 
 struct DailyListView: View {
     let dataList: [DailyForecast]
+    private var tempMax: Double {
+        dataList.map(\.temperatureMax).max() ?? 0
+    }
+    private var tempMin: Double {
+        dataList.map(\.temperatureMin).min() ?? 0
+    }
     var body: some View {
         CardView {
             VStack {
@@ -21,13 +27,16 @@ struct DailyListView: View {
                 
                 VStack(spacing: 5) {
                     ForEach(dataList, id: \.self) { data in
-                        DailyCardView(data: data)
+                        DailyCardView(data: data, globaltempMin: tempMin, globaltempMax: tempMax)
                     }
                 }
                 .padding(.horizontal)
                 
             }
             .frame(maxWidth: .infinity)
+        }
+        .onAppear() {
+            print(tempMin, tempMax)
         }
     }
 }
