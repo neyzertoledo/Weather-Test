@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DailyListView: View {
     let dataList: [DailyForecast]
+    let currentTemp: Double
     private var tempMax: Double {
         dataList.map(\.temperatureMax).max() ?? 0
     }
@@ -26,10 +27,11 @@ struct DailyListView: View {
                     .frame(maxWidth: .infinity,alignment: .leading)
                 
                 Grid(alignment: .leading, verticalSpacing: 10) {
-                    ForEach(dataList, id: \.self) { data in
+                    ForEach(Array(dataList.enumerated()), id: \.element) { index, data in
                         let tempDiff = tempMax - tempMin
                         let lineWidth = (data.temperatureMax - data.temperatureMin) / tempDiff
                         let lineStart = (data.temperatureMin - tempMin) / tempDiff
+                        let currentPoint: CGFloat? = index == 0 ? (currentTemp - tempMin) / tempDiff : nil
 
                         GridRow {
                             Text(data.time.relativeDayText)
@@ -41,7 +43,8 @@ struct DailyListView: View {
 
                             GradientLineView(
                                 widthPercent: lineWidth,
-                                startPercent: lineStart
+                                startPercent: lineStart,
+                                point: currentPoint
                             )
 
                             Text(Constants.temperature(temp: data.temperatureMax))
@@ -57,6 +60,6 @@ struct DailyListView: View {
 }
 
 #Preview {
-    DailyListView(dataList: MockData.dailyData())
+    DailyListView(dataList: MockData.dailyData(), currentTemp: 18)
         .padding(10)
 }

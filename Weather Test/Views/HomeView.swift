@@ -57,7 +57,7 @@ struct HomeView: View {
 
                         HourlyForecastListView(forecastList: viewModel.hourly)
 
-                        DailyListView(dataList: viewModel.daily)
+                        DailyListView(dataList: viewModel.daily, currentTemp: viewModel.current.temperature)
 
                         CurrentListCards(data: viewModel.current)
 

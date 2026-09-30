@@ -24,6 +24,7 @@ struct CardView<Content: View>: View {
 struct GradientLineView: View {
     let widthPercent: CGFloat
     let startPercent: CGFloat
+    var point: CGFloat? = nil
 
     var body: some View {
         GeometryReader { geo in
@@ -43,6 +44,17 @@ struct GradientLineView: View {
                         )
                         .offset(x: width * startPercent)
                 }
+                .overlay(alignment: .leading) {
+                    if point != nil {
+                        Capsule()
+                            .fill(.white)
+                            .frame(
+                                width: 10,
+                                height: 10
+                            )                            .clipShape(Circle())
+                            .offset(x: width * point!)
+                    }
+                }
         }
         .frame(height: 4)
     }
@@ -53,7 +65,7 @@ struct GradientLineView: View {
     VStack {
         CardView {
             Text("Hello, World!")
-            GradientLineView(widthPercent: 0.5, startPercent: 0.1)
+            GradientLineView(widthPercent: 0.5, startPercent: 0.1, point: 0.5)
         }
     }
 }
