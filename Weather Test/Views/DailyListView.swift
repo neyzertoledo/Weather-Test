@@ -25,9 +25,29 @@ struct DailyListView: View {
                     .textCase(.uppercase)
                     .frame(maxWidth: .infinity,alignment: .leading)
                 
-                VStack(spacing: 5) {
+                Grid(alignment: .leading, verticalSpacing: 10) {
                     ForEach(dataList, id: \.self) { data in
-                        DailyCardView(data: data, globaltempMin: tempMin, globaltempMax: tempMax)
+                        let tempDiff = tempMax - tempMin
+                        let lineWidth = (data.temperatureMax - data.temperatureMin) / tempDiff
+                        let lineStart = (data.temperatureMin - tempMin) / tempDiff
+
+                        GridRow {
+                            Text(data.time.relativeDayText)
+
+                            Image(systemName: data.weatherIcon.rawValue)
+
+                            Text(Constants.temperature(temp: data.temperatureMin))
+                                .monospacedDigit()
+
+                            GradientLineView(
+                                widthPercent: lineWidth,
+                                startPercent: lineStart
+                            )
+
+                            Text(Constants.temperature(temp: data.temperatureMax))
+                                .monospacedDigit()
+                        }
+                        .padding(.vertical, 5)
                     }
                 }
                 
