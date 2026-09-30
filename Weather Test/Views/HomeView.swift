@@ -17,9 +17,11 @@ struct HomeView: View {
                 case .notStarted:
                     EmptyView()
                 case .fetching:
-                    VStack(spacing: 12) {
-                        Text(Strings.gettinWeatherData)
-                        ProgressView()
+                    CardView{
+                        VStack(spacing: 12) {
+                            Text(Strings.gettinWeatherData)
+                            ProgressView()
+                        }.padding()
                     }
                     .frame(width: geo.size.width, height: geo.size.height)
                 case .permissionsDenied:
@@ -51,6 +53,7 @@ struct HomeView: View {
 
                     }
                     .padding()
+                    .frame(width: geo.size.width)
                 }
             }
         }

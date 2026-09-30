@@ -21,7 +21,7 @@ struct DailyListView: View {
                 
                 Text(Strings.forecast14Days)
                     .font(.headline)
-                    .padding()
+                    .padding(.vertical)
                     .textCase(.uppercase)
                     .frame(maxWidth: .infinity,alignment: .leading)
                 
@@ -30,17 +30,13 @@ struct DailyListView: View {
                         DailyCardView(data: data, globaltempMin: tempMin, globaltempMax: tempMax)
                     }
                 }
-                .padding(.horizontal)
                 
             }
-            .frame(maxWidth: .infinity)
-        }
-        .onAppear() {
-            print(tempMin, tempMax)
         }
     }
 }
 
 #Preview {
     DailyListView(dataList: MockData.dailyData())
+        .padding(10)
 }

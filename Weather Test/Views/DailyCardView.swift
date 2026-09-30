@@ -12,55 +12,55 @@ struct DailyCardView: View {
     let globaltempMin: Double
     let globaltempMax: Double
 
-    private var width: Double {
+    private var lineWidth: Double {
         (data.temperatureMax - data.temperatureMin) /
         (globaltempMax - globaltempMin)
     }
-    private var start: Double {
+    private var lineStart: Double {
         (data.temperatureMin - globaltempMin) /
         (globaltempMax - globaltempMin)
     }
 
     var body: some View {
-        HStack {
-            Text(data.time.relativeDayText)
-                .frame(width: 100, alignment: .leading)
-
-            Spacer()
-
-            Image(systemName: data.weatherIcon.rawValue)
-
-            Spacer()
-
             HStack {
-                Text(Constants.temperature(temp: data.temperatureMin))
-                GradientLineView(widthPercent: width, startPercent: start)
-                Text(Constants.temperature(temp: data.temperatureMax))
-            }
-            .frame(width: 180, alignment: .center)
+                Text(data.time.relativeDayText)
+                    .frame(alignment: .leading)
+
+                Spacer()
+
+                Image(systemName: data.weatherIcon.rawValue)
+                    .frame(alignment: .leading)
+
+                HStack {
+                    Text(Constants.temperature(temp: data.temperatureMin))
+                    GradientLineView(widthPercent: lineWidth, startPercent: lineStart)
+                    Text(Constants.temperature(temp: data.temperatureMax))
+                }
         }
-        .padding(.horizontal)
-        .padding(.vertical, 10)
+        .frame(height: 50)
     }
 }
 
 #Preview {
     let formatter = ISO8601DateFormatter()
     let specificDate = formatter.date(from: "2026-08-06T00:00:00Z")
-    DailyCardView( data: DailyForecast(
-        time: Date(),
-        temperatureMax: 25,
-        temperatureMin: 21,
-        precipitationMax: 0,
-        weatherIcon: .clearDay),
-       globaltempMin: 19, globaltempMax: 25
-    )
-    DailyCardView( data: DailyForecast(
-        time: specificDate ?? Date().adding(days: 1),
-        temperatureMax: 22,
-        temperatureMin: 19,
-        precipitationMax: 0,
-        weatherIcon: .clearDay),
-      globaltempMin: 19, globaltempMax: 25
-    )
+    Group {
+        DailyCardView( data: DailyForecast(
+            time: Date(),
+            temperatureMax: 25,
+            temperatureMin: 21,
+            precipitationMax: 0,
+            weatherIcon: .clearDay),
+                       globaltempMin: 19, globaltempMax: 25
+        )
+        DailyCardView( data: DailyForecast(
+            time: specificDate ?? Date().adding(days: 1),
+            temperatureMax: 5,
+            temperatureMin: 3,
+            precipitationMax: 0,
+            weatherIcon: .clearDay),
+                       globaltempMin: 3, globaltempMax: 9
+        )
+    }
+    .padding(.horizontal)
 }

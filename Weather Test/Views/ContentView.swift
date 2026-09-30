@@ -20,7 +20,6 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "line.3.horizontal")
                         .font(.title3)
-                        .foregroundStyle(.primary)
                         .frame(width: 50, height: 50)
                         .background(.ultraThinMaterial)
                         .clipShape(Circle())
