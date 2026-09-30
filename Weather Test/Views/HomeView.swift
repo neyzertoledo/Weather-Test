@@ -11,32 +11,42 @@ struct HomeView: View {
     let viewModel = ForecastViewModel()
 
     var body: some View {
-        GeometryReader { geo in
-            ScrollView(.vertical) {
-                switch viewModel.homeStatus {
-                case .notStarted:
-                    EmptyView()
-                case .fetching:
-                    CardView{
-                        VStack(spacing: 12) {
-                            Text(Strings.gettinWeatherData)
-                            ProgressView()
-                        }.padding()
-                    }
-                    .frame(width: geo.size.width, height: geo.size.height)
-                case .permissionsDenied:
-                    VStack(spacing: 12) {
-                        Image(systemName: "location.slash")
-                            .font(.largeTitle)
-                        Text(Strings.locationPermisionDenied)
-                            .multilineTextAlignment(.center)
-                    }
+        ZStack {
+            Color.weatherApp
+                .frame(maxWidth: .infinity)
+            
+            switch viewModel.homeStatus {
+            case .notStarted:
+                EmptyView()
                     .frame(maxWidth: .infinity)
+            case .fetching:
+                CardView{
+                    VStack(spacing: 12) {
+                        Text(Strings.gettinWeatherData)
+                        ProgressView()
+                    }
                     .padding()
-                case .failed(let error):
-                    Text("Error: " + error.localizedDescription)
-                        .frame(width: geo.size.width, height: geo.size.height)
-                case .success:
+                }
+            case .permissionsDenied:
+                VStack(spacing: 12) {
+                    Image(systemName: "location.slash")
+                        .font(.largeTitle)
+                    Text(Strings.locationPermisionDenied)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+            case .failed(let error):
+                CardView {
+                    VStack {
+                        Text("Error")
+                            .bold()
+                            .foregroundStyle(.red)
+                        Text(error.localizedDescription)
+                    }
+                }
+            case .success:
+                ScrollView(.vertical) {
                     VStack(spacing: 20) {
 
                         CurrentForecastView(
@@ -53,7 +63,6 @@ struct HomeView: View {
 
                     }
                     .padding()
-                    .frame(width: geo.size.width)
                 }
             }
         }
